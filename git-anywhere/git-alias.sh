@@ -1,10 +1,4 @@
 #!/bin/sh
-
-if [ "$@" = "" ]; then
-    echo "Please specific your git parameter."
-    exit
-fi
-
 BASHRC=/home/$USER/.bashrc
 GIT_EXEC=`which git --skip-alias`
 LOCATION=/home/$USER/git_alias
@@ -36,7 +30,7 @@ install() {
 if [ "$1" = "@install" ]; then
     install
 elif [ "$1" = "clone" ]; then
-    $GIT_EXEC $@
+    $GIT_EXEC "$@"
 else
 
     BACK_TITLE="Git root working directory"
@@ -69,7 +63,7 @@ else
             echo "* GIT ANYWHERE: Moved to -> $MENU_VALUE"
             echo
             
-            $GIT_EXEC $@
+            $GIT_EXEC "$@"
         else
             echo "* GIT ANYWHERE failed to help. You are invoking git out side a working dir and NO working history logged."
             echo "$GIT_ROOT"
@@ -88,10 +82,7 @@ else
             echo -e "$GIT_ROOT\n$(cat $DATA)" > $DATA
         fi
         
-        echo $@
-        
-        echo $@
-        #$GIT_EXEC $@
+        $GIT_EXEC "$@"
     fi
 
 
