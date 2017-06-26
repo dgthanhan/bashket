@@ -31,6 +31,8 @@ if [ "$1" = "@install" ]; then
     install
 elif [ "$1" = "clone" ]; then
     $GIT_EXEC "$@"
+elif [[ $1 == -* ]]; then
+    $GIT_EXEC "$@"
 else
 
     BACK_TITLE="Git root working directory"
@@ -48,27 +50,42 @@ else
     GIT_STATUS=$?
 
     if [ $GIT_STATUS -gt 0 ]; then
-        
+
         if [ -s $DATA ]; then
-            
-            DIRS=`cat $DATA | sed ':a;N;$!ba;s/[\n]\+/ /g' | sed 's/^ //' | sed 's/ $//' | sed 's/ / . /g'`
+
+            DIRS_RAW=`cat $DATA | sed ':a;N;$!ba;s/[\n]\+/ /g' | sed 's/^ //' | sed 's/ $//'`
+            DIRS=$DIRS_RAW
+            # It the current working location hasn't been saved, show it at the top of list
+            if [[ $DIRS_RAW != *^"${PWD}"\$* ]]; then
+              DIRS="$PWD $DIRS"
+            fi
+            DIRS="${DIRS// /' . '}"
             echo $DIRS
             dialog --backtitle "$BACK_TITLE" --title "$TITLE" --menu "Select a previously used git working dir:" $HEIGHT $WIDTH $LINE $DIRS . 2>$INPUT
-            
+
             MENU_VALUE=`cat $INPUT`
             rm $INPUT
 
             clear
-            cd $MENU_VALUE
-            echo "* GIT ANYWHERE: Moved to -> $MENU_VALUE"
-            echo
-            
-            $GIT_EXEC "$@"
+
+            if [ ! -z "$MENU_VALUE" ]; then
+              cd $MENU_VALUE
+              echo "* GIT ANYWHERE: Moved to -> $MENU_VALUE"
+              echo
+
+              $GIT_EXEC "$@"
+
+              if [ $? -eq 0 ]; then
+                # Move the selected location to the top of list
+                echo -e "$MENU_VALUE\n$(cat $DATA | sed ':a;N;$!ba;s/[\n]\+/\n/g' | sed 's/^ //' | sed 's/ $//' | sed 's@'^"$MENU_VALUE"\$'@@g')" > $DATA
+              fi
+
+            fi
         else
             echo "* GIT ANYWHERE failed to help. You are invoking git out side a working dir and NO working history logged."
             echo "$GIT_ROOT"
         fi
-    else 
+    else
         IS_EXISTED=0
         while read -r L
         do
@@ -81,11 +98,9 @@ else
             echo "* GIT ANYWHERE: New git location has been stored."
             echo -e "$GIT_ROOT\n$(cat $DATA)" > $DATA
         fi
-        
+
         $GIT_EXEC "$@"
     fi
 
 
 fi
-
-
