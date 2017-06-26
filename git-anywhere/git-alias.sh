@@ -31,6 +31,8 @@ if [ "$1" = "@install" ]; then
     install
 elif [ "$1" = "clone" ]; then
     $GIT_EXEC "$@"
+elif [[ $1 == -* ]]; then
+    $GIT_EXEC "$@"
 else
 
     BACK_TITLE="Git root working directory"
@@ -61,15 +63,15 @@ else
             clear
 
             if [ ! -z "$MENU_VALUE" ]; then
-              # Move the selected location to the top of list
+              # Move the selected location up to top
               echo -e "$MENU_VALUE\n$(cat $DATA | sed ':a;N;$!ba;s/[\n]\+/\n/g' | sed 's/^ //' | sed 's/ $//' | sed 's@'"$MENU_VALUE"'@@g')" > $DATA
 
               cd $MENU_VALUE
               echo "* GIT ANYWHERE: Moved to -> $MENU_VALUE"
               echo
-            fi
 
-            $GIT_EXEC "$@"
+              $GIT_EXEC "$@"
+            fi
         else
             echo "* GIT ANYWHERE failed to help. You are invoking git out side a working dir and NO working history logged."
             echo "$GIT_ROOT"
