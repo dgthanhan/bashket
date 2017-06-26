@@ -53,7 +53,13 @@ else
 
         if [ -s $DATA ]; then
 
-            DIRS=`cat $DATA | sed ':a;N;$!ba;s/[\n]\+/ /g' | sed 's/^ //' | sed 's/ $//' | sed 's/ / . /g'`
+            DIRS_RAW=`cat $DATA | sed ':a;N;$!ba;s/[\n]\+/ /g' | sed 's/^ //' | sed 's/ $//'`
+            DIRS=$DIRS_RAW
+            # It the current working location hasn't been saved, show it at the top of list
+            if [[ $DIRS_RAW != *^"${PWD}"\$* ]]; then
+              DIRS="$PWD $DIRS"
+            fi
+            DIRS="${DIRS// /' . '}"
             echo $DIRS
             dialog --backtitle "$BACK_TITLE" --title "$TITLE" --menu "Select a previously used git working dir:" $HEIGHT $WIDTH $LINE $DIRS . 2>$INPUT
 
@@ -63,14 +69,17 @@ else
             clear
 
             if [ ! -z "$MENU_VALUE" ]; then
-              # Move the selected location up to top
-              echo -e "$MENU_VALUE\n$(cat $DATA | sed ':a;N;$!ba;s/[\n]\+/\n/g' | sed 's/^ //' | sed 's/ $//' | sed 's@'"$MENU_VALUE"'@@g')" > $DATA
-
               cd $MENU_VALUE
               echo "* GIT ANYWHERE: Moved to -> $MENU_VALUE"
               echo
 
               $GIT_EXEC "$@"
+
+              if [ $? -eq 0 ]; then
+                # Move the selected location to the top of list
+                echo -e "$MENU_VALUE\n$(cat $DATA | sed ':a;N;$!ba;s/[\n]\+/\n/g' | sed 's/^ //' | sed 's/ $//' | sed 's@'^"$MENU_VALUE"\$'@@g')" > $DATA
+              fi
+
             fi
         else
             echo "* GIT ANYWHERE failed to help. You are invoking git out side a working dir and NO working history logged."
