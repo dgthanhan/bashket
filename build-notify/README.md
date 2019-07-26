@@ -1,6 +1,6 @@
 # Build Notifier
 
-This small utility 
+This small utility monitors and shows a small message describing active build processes at the top of the screen.
 
 ### Linux Installation
 
