@@ -15,7 +15,7 @@ def status_thread():
         
         wx.CallAfter(update_message, summary)
         index = index + 1
-        time.sleep(1)
+        time.sleep(15)
 
 def update_message(message):
     pattern = re.compile("^[ \t\r\n]*$")
