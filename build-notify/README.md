@@ -1,5 +1,7 @@
 # Build Notifier
 
+This small utility 
+
 ### Linux Installation
 
 Fedora:
@@ -11,11 +13,15 @@ Arch:
 ```sh
 su -c "pacman -S python-wxpython; curl -H 'Cache-Control: no-cache' -s https://github.com/dgthanhan/bashket/raw/master/build-notify/notify.py; chmod uog+xr /usr/local/bin/build-notify.py"; mkdir -p ~/.config/autostart; echo -e "[Desktop Entry]\nType=Application\nExec=/usr/local/bin/build-notify.py\nHidden=false\nNoDisplay=false\nX-GNOME-Autostart-enabled=true\nName=Build Notify\nComment=Start Build Notify on Startup" > ~/.config/autostart/build-notify.desktop; /usr/local/bin/build-notify.py &
 ```
-### Other Platform
 
-Please use the [JAVA version](https://github.com/dgthanhan/bashket/raw/master/build-notify/build-notify.jar) of the notifier:
+### Windows
+
+Please use the notify.exe or the JAVA version below.
+
+### Other Platforms
+
+Please use the [JAVA version](https://github.com/dgthanhan/bashket/raw/master/build-notify/build-notify.jar) of the notifier. This requires JRE 6+
 
 ```sh
 java -jar build-notify.jar
 ```
-Requires JRE 6+
