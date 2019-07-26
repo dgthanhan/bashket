@@ -20,10 +20,7 @@ def status_thread():
 def update_message(message):
     pattern = re.compile("^[ \t\r\n]*$")
     if pattern.match(message):
-        s = label.GetSize()
-        w = s.Width
-        x = int(width / 2 - w / 2)
-        frame.SetSize(x, 2000, w, 1)
+        frame.SetSize(0, height, 1, 1)
     else:
         label.SetLabel(" BUILD: " + message + " ")
         s = label.GetSize()
@@ -32,11 +29,9 @@ def update_message(message):
         x = int(width / 2 - w / 2)
         frame.SetSize(x, 1, w, 20)
         
-
-
 app = wx.App()
 width, height = wx.GetDisplaySize()
-frame = wx.Frame(None, style=(wx.FRAME_NO_TASKBAR | wx.NO_BORDER | wx.FRAME_TOOL_WINDOW | wx.STAY_ON_TOP | wx.FRAME_FLOAT_ON_PARENT))
+frame = wx.Frame(None, style=(wx.FRAME_NO_TASKBAR | wx.NO_BORDER | wx.FRAME_TOOL_WINDOW | wx.STAY_ON_TOP))
 
 label = wx.StaticText(frame, label="", style=wx.ALIGN_CENTER)
 label.SetForegroundColour((255, 0, 0))
