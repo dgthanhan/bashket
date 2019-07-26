@@ -1,6 +1,6 @@
 # Build Notifier
 
-###Linux Installation
+### Linux Installation
 
 Fedora:
 ```sh
