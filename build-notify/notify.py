@@ -20,7 +20,7 @@ def status_thread():
 def update_message(message):
     pattern = re.compile("^[ \t\r\n]*$")
     if pattern.match(message):
-        frame.SetSize(0, height, 1, 1)
+        frame.SetSize(0, 0, 1, 1)
     else:
         label.SetLabel(" BUILD: " + message + " ")
         s = label.GetSize()
