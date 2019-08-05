@@ -30,11 +30,11 @@ java -jar $HOME/.local/bin/build-notify.jar &
 
 ### Windows
 
-Please use the notify.exe or the JAVA version below.
+Please use the prepacked Python version in notify.exe. You can also use the JAVA version as in the following guide for other platforms.
 
 ### Other Platforms
 
-Please use the [JAVA version](https://github.com/dgthanhan/bashket/raw/master/build-notify/build-notify.jar) of the notifier. This requires JRE 7+
+The [JAVA version](https://github.com/dgthanhan/bashket/raw/master/build-notify/build-notify.jar) is cross-platform with some special handling for Mac to disable the animation. The JAVA application requires JRE 7+.
 
 ```sh
 java -jar build-notify.jar
