@@ -30,7 +30,11 @@ java -jar $HOME/.local/bin/build-notify.jar &
 
 ### Windows
 
-Please use the prepacked Python version in notify.exe. You can also use the JAVA version as in the following guide for other platforms.
+Please use the [Windows installer](https://github.com/dgthanhan/bashket/raw/master/build-notify/installer/output/notifier-1.0.exe)
+
+## Mac
+
+Please mount the [Disk Image] (https://github.com/dgthanhan/bashket/raw/master/build-notify/installer/output/BuildNotify.dmg) and drag the application to your "Applications" folder.
 
 ### Other Platforms
 
