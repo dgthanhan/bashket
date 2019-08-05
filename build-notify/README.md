@@ -34,7 +34,7 @@ Please use the [Windows installer](https://github.com/dgthanhan/bashket/raw/mast
 
 ## Mac
 
-Please mount the [Disk Image] (https://github.com/dgthanhan/bashket/raw/master/build-notify/installer/output/BuildNotify.dmg) and drag the application to your "Applications" folder.
+Please mount the [Disk Image](https://github.com/dgthanhan/bashket/raw/master/build-notify/installer/output/BuildNotify.dmg) and drag the application to your "Applications" folder.
 
 ### Other Platforms
 
